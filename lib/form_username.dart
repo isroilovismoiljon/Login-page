@@ -3,16 +3,22 @@ import 'package:flutter/material.dart';
 class FormUsername extends StatelessWidget {
   const FormUsername({
     super.key,
-    required this.controllerUsername, required this.labelText, required this.prefixIcon,
+    required this.controllerUsername,
+    required this.labelText,
+    required this.prefixIcon,
+    required this.validator,
   });
 
   final TextEditingController controllerUsername;
   final String labelText;
   final Icon prefixIcon;
+  final String? Function(String?) validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controllerUsername,
       style: TextStyle(color: Colors.white),
       decoration: InputDecoration(

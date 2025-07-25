@@ -1,11 +1,11 @@
-import 'package:firs_project/export_page_password.dart';
 import 'package:firs_project/app_bar_title.dart';
-import 'package:firs_project/form_password.dart';
 import 'package:firs_project/form_username.dart';
 import 'package:firs_project/register_now.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'export_input_password.dart';
 
 class ScaffoldPage extends StatefulWidget {
   const ScaffoldPage({super.key});
@@ -17,6 +17,7 @@ class ScaffoldPage extends StatefulWidget {
 class _ScaffoldPageState extends State<ScaffoldPage> {
   final controllerUsername = TextEditingController();
   final controllerPassword = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   bool testBButton = true;
 
   @override
@@ -47,6 +48,7 @@ class _ScaffoldPageState extends State<ScaffoldPage> {
             child: Padding(
               padding: const EdgeInsets.only(left: 27, right: 27, top: 171.5),
               child: Form(
+                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,11 +64,20 @@ class _ScaffoldPageState extends State<ScaffoldPage> {
                         Icons.account_circle_rounded,
                         color: Color(0XFFb2b2b2),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Username or Email required";
+                        } else if (value.length < 3) {
+                          return "Must be minimum 3 character";
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                     SizedBox(
                       height: 40.h,
                     ),
-                    ExportPagePassword(controllerPassword: controllerPassword),
+                    ExportInputPassword(controllerPassword: controllerPassword, labelText: 'Password',),
                     SizedBox(
                       height: 46.h,
                     ),
